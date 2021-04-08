@@ -14,11 +14,3 @@ test:
   pool: 5
   username: postgres
   password: 12345
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: loan_management
-  pool: 5
-  username: postgres
-  password: 12345
