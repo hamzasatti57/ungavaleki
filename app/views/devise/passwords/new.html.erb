@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="fixed">
+<body>
+<!-- start: page -->
+<section class="body-sign">
+  <div class="center-sign">
+    <a href="/" class="logo float-left">
+      <img src="/assets/logo.png" height="54" alt="Ungavaleki" />
+    </a>
+
+    <div class="panel card-sign">
+      <div class="card-title-sign mt-3 text-right">
+        <h2 class="title text-uppercase font-weight-bold m-0"><i class="bx bx-user-circle mr-1 text-6 position-relative top-5"></i> Recover Password</h2>
+      </div>
+      <div class="card-body">
+        <div class="alert alert-info">
+          <p class="m-0">Enter your e-mail below and we will send you reset instructions!</p>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="form-group mb-0">
+            <div class="input-group">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control form-control-lg' %>
+              <span class="input-group-append">
+                <%= f.submit "Reset", class: 'btn btn-primary btn-lg' %>
+									</span>
+            </div>
+          </div>
+          <p class="text-center mt-3"><%= render "devise/shared/links" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/assets/theme.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42715764-8', 'auto');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
