@@ -1,16 +1,19 @@
+default: &default
+  adapter: postgresql
+  username: postgres
+  password: 12345
+  pool: 15
+  timeout: 5000
+  host: localhost
+
 development:
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  database: loan_management
-  pool: 5
-  username: postgres
-  password: 12345
+  <<: *default
+  database: loan-app-dev
+
 test:
-  adapter: postgresql
-  encoding: unicode
-  host: localhost
-  database: loan_management
-  pool: 5
-  username: postgres
-  password: 12345
+  <<: *default
+  database: loan-app-test
+
+production:
+  <<: *default
+  database: loan-app-production
