@@ -116,7 +116,7 @@ a:active {
 	border-left: 1px solid #3A3A3A;
 	box-shadow: 1px 3px 0 1px #CCCCCC;
 	height: 50px;
-	margin: -40px -40px 40px -40px;
+	margin: -100px -40px 40px -40px;
 	padding: 0;
 }
 
@@ -11956,7 +11956,7 @@ html.dark .fileupload-new .input-append .btn-file {
 }
 
 .form-group-invisible.focus .control-label-invisible {
-	color: #0088cc;
+	color: #051014;
 }
 
 .form-group-invisible .control-label-invisible {

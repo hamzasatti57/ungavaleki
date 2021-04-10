@@ -370,7 +370,7 @@ Theme Version: 	3.1.0
 			backgroundColor: null,
 			color: '#FFF',
 			hoverOpacity: 0.7,
-			selectedColor: '#0088CC',
+			selectedColor: '#051014',
 			selectedRegions: ['US'],
 			enableZoom: true,
 			borderWidth:1,

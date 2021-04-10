@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>LoanManagement</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>LoanManagement</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<% if user_signed_in? %>
+  <%= render partial: "/shared/header"%>
+  <section class="body">
+    <div class="inner-wrapper">
+      <%= render partial: "/shared/sidebar"%>
+      <%= yield %>
+    </div>
+    <%= render partial: 'shared/right_bar' %>
+  </section>
+<% else %>
+  <%= yield %>
+<% end %>
+</body>
 </html>
