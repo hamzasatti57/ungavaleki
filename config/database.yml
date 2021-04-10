@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   username: postgres
-  password: 12345
+  password: ZfQx3wek
   pool: 15
   timeout: 5000
   host: localhost
