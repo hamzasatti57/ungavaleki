@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'dashboard', to: 'home#index'
+  resources :users, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
     :confirmations => "users/confirmations",
