@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group row">
-      <label class="col-lg-3 control-label text-lg-right pt-2">Default Datepicker</label>
+      <label class="col-lg-3 control-label text-lg-right pt-2">Date Of Birth</label>
       <div class="col-lg-6">
         <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy" >
 														<span class="input-group-prepend">
@@ -49,12 +49,8 @@
 																<i class="fas fa-calendar-alt"></i>
 															</span>
 														</span>
-          <input type="text" data-plugin-datepicker class="form-control">
+          <%= form.text_field :dob, id: :user_dob, :class => 'form-control' %>
         </div>
-      <!--   <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
-    <input class="form-control" type="text" readonly />
-    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-</div> -->
       </div>
     </div>
 
@@ -65,28 +61,35 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Phone Number</label>
+      <div class="col-lg-6">
+        <%= form.text_field :phone, id: :user_phone, :class => 'form-control', :placeholder => "Enter Phone Number" %>
+      </div>
+    </div>
+
     <div id="user-type">
       <div class="form-group row">
-        <label class="col-lg-3 control-label text-lg-right pt-2">Role</label>
+        <label class="col-lg-3 control-label text-lg-right pt-2">Plan Type</label>
         <div class="col-lg-6">
           <%= form.select :user_type, options_for_select([["Basic – R 1000", "basic"], ["Silver – R 1500", "silver"], ["Gold – R 2000", "gold"], ["PlugBasic – R 1000", "plug_basic"], ["PlugSilver – R 1500", "plug_silver"], ["PlugGold – R 2000", "plug_gold"]]), {}, :class => 'form-control form-control-lg mb-3'  %>
         </div>
       </div>
     </div>
 
-    <div class="form-group row">
-      <label class="col-lg-3 control-label text-lg-right pt-2">Plug Users</label>
-      <div class="col-lg-6">
-        <select multiple data-plugin-selectTwo class="form-control populate">
-          <optgroup label="Alaskan/Hawaiian Time Zone">
+    <div id="plug-users">
+      <div class="form-group row">
+        <label class="col-lg-3 control-label text-lg-right pt-2">Plug Users</label>
+        <div class="col-lg-6">
+          <select multiple data-plugin-selectTwo class="form-control form-control-lg mb-3 populate">
             <option value="AK">Alaska</option>
             <option value="HI">Hawaii</option>
             <option value="CA">California</option>
             <option value="OR">Oregon</option>
             <option value="NE">Nebraska</option>
-             <option value="NE">Nebraska</option>
-          </optgroup>
-        </select>
+            <option value="NE">Nebraska</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -104,12 +107,12 @@
 
 <script>
 
- $(document).ready(function(){
-  $("#datepicker").datepicker({ 
-        autoclose: true, 
-        todayHighlight: true
-  })
-});
+  $(document).ready(function(){
+    $("#datepicker").datepicker({
+      autoclose: true,
+      todayHighlight: true
+    })
+  });
 
   $('#user_role').on('change', function (e){
     var role = $(this).val();
@@ -117,6 +120,11 @@
       $('#user-type').show();
     } else {
       $('#user-type').hide();
+    }
+    if (role == 'plug_user') {
+      $('#plug-users').show();
+    } else {
+      $('#plug-users').hide();
     }
   });
 </script>

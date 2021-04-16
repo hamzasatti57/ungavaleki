@@ -23,6 +23,7 @@
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
+              <th>Plan Type</th>
               <th>DOB</th>
               <th>Phone</th>
 <!--              <th></th>-->
@@ -36,6 +37,7 @@
                 <td><%= user.full_name %></td>
                 <td><%= user.email %></td>
                 <td><%= user.role&.humanize %></td>
+                <td><%= User::user_types[user.user_type] %></td>
                 <td><%= user.dob %></td>
                 <td><%= user.phone %></td>
 <!--                <td><%#= link_to 'Show', user %></td>-->
