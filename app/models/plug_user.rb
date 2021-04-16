@@ -1,0 +1,2 @@
+class PlugUser < ApplicationRecord
+end

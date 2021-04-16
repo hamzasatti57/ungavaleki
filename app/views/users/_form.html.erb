@@ -1,0 +1,130 @@
+<div class="card-body">
+  <%= form_with(model: user, local: true) do |form| %>
+    <% if user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">First Name</label>
+      <div class="col-lg-6">
+        <%= form.text_field :first_name, id: :user_first_name, :class => 'form-control', :placeholder => "Enter First Name" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Last Name</label>
+      <div class="col-lg-6">
+        <%= form.text_field :last_name, id: :user_last_name, :class => 'form-control', :placeholder => "Enter Last Name" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Email</label>
+      <div class="col-lg-6">
+        <%= form.text_field :email, id: :user_email, :class => 'form-control', :placeholder => "Enter Email" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Password</label>
+      <div class="col-lg-6">
+        <%= form.password_field :password, id: :user_password, :class => 'form-control', :placeholder => "Enter Password"  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2">Date Of Birth</label>
+      <div class="col-lg-6">
+        <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy" >
+														<span class="input-group-prepend">
+															<span class="input-group-text">
+																<i class="fas fa-calendar-alt"></i>
+															</span>
+														</span>
+          <%= form.text_field :dob, id: :user_dob, :class => 'form-control' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2">Role</label>
+      <div class="col-lg-6">
+        <%= form.select :role, options_for_select([["Admin", "admin"], ["Account Manager", "account_manager"], ["Super Admin", "super_admin"], ["Plug User", "plug_user"], ["User", "user"]], selected: @user.role), {}, :class => 'form-control form-control-lg mb-3'  %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Phone Number</label>
+      <div class="col-lg-6">
+        <%= form.text_field :phone, id: :user_phone, :class => 'form-control', :placeholder => "Enter Phone Number" %>
+      </div>
+    </div>
+
+    <div id="user-type">
+      <div class="form-group row">
+        <label class="col-lg-3 control-label text-lg-right pt-2">Plan Type</label>
+        <div class="col-lg-6">
+          <%= form.select :user_type, options_for_select([["Basic – R 1000", "basic"], ["Silver – R 1500", "silver"], ["Gold – R 2000", "gold"], ["PlugBasic – R 1000", "plug_basic"], ["PlugSilver – R 1500", "plug_silver"], ["PlugGold – R 2000", "plug_gold"]]), {}, :class => 'form-control form-control-lg mb-3'  %>
+        </div>
+      </div>
+    </div>
+
+    <div id="plug-users">
+      <div class="form-group row">
+        <label class="col-lg-3 control-label text-lg-right pt-2">Plug Users</label>
+        <div class="col-lg-6">
+          <select multiple data-plugin-selectTwo class="form-control form-control-lg mb-3 populate">
+            <option value="AK">Alaska</option>
+            <option value="HI">Hawaii</option>
+            <option value="CA">California</option>
+            <option value="OR">Oregon</option>
+            <option value="NE">Nebraska</option>
+            <option value="NE">Nebraska</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<script src="/assets/jquery.dataTables.min.js"></script>
+<script src="/assets/dataTables.bootstrap4.min.js"></script>
+<script src="/assets/bootstrap-datepicker.js"></script>
+<script src="/assets/dataTables.buttons.min.js"></script>
+<script src="/assets/examples.advanced.form.js"></script>
+
+<script>
+
+  $(document).ready(function(){
+    $("#datepicker").datepicker({
+      autoclose: true,
+      todayHighlight: true
+    })
+  });
+
+  $('#user_role').on('change', function (e){
+    var role = $(this).val();
+    if (role == 'plug_user' || role == "user") {
+      $('#user-type').show();
+    } else {
+      $('#user-type').hide();
+    }
+    if (role == 'plug_user') {
+      $('#plug-users').show();
+    } else {
+      $('#plug-users').hide();
+    }
+  });
+</script>

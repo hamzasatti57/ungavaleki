@@ -1,1 +1,8 @@
 /* Add here all your CSS customizations */
+#user-type {
+  display: none;
+}
+
+#plug-users {
+  display: none;
+}
