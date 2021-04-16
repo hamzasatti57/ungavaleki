@@ -15,6 +15,7 @@
 //= require popper.min
 //= require jquery
 //= require jquery.browser.mobile
+//= require select2
 //= require jquery.cookie
 //= require style.switcher
 //= require bootstrap
