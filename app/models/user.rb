@@ -7,10 +7,7 @@ class User < ApplicationRecord
   enum user_type: {
     "basic": "Basic – R 1000",
     "silver": "Silver – R 1500",
-    "gold": "Gold – R 2000",
-    "plug_basic": "PlugBasic – R 1000",
-    "plug_silver": "PlugSilver – R 1500",
-    "plug_gold": "PlugGold – R 2000"
+    "gold": "Gold – R 2000"
   }
 
   def account_manager?
