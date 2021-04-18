@@ -32,7 +32,6 @@
 //= require buttons.html5.min.js
 //= require buttons.print.min.js
 //= require jszip.min.js
-//= reuire pdfmake.min.js
 //= require vfs_fonts.js
 //= require examples.datatables.default.js
 //= require examples.datatables.row.with.details.js
