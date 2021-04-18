@@ -38,6 +38,7 @@
 //= require examples.datatables.row.with.details.js
 //= require examples.datatables.tabletools.js
 //= require bootstrap-datepicker.js
+//= require less
 //= require theme
 //= require custom
 //= require theme.init
