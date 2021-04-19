@@ -1,0 +1,53 @@
+<!doctype html>
+<html class="fixed">
+
+<script src="/assets/modernizr.js"></script>
+<section role="main" class="content-body">
+  <div class="row">
+    <div class="col">
+      <section class="card">
+        <header class="card-header">
+          <div class="card-actions">
+            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+          </div>
+
+          <h2 class="card-title">Plugs</h2>
+        </header>
+        <div class="card-body">
+          <%= link_to 'New Plug', new_plug_path, class: 'btn btn-primary' %>
+          <p id="notice"><%= notice %></p>
+          <table class="table table-bordered table-striped mb-0" id="datatable-default">
+            <thead>
+            <tr>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @plugs.each do |plug| %>
+              <tr>
+                <td><%= plug.name %></td>
+                <td><%= plug.amount %></td>
+                <td><%= link_to 'Destroy', plug, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<script src="/assets/theme.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42715764-8', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :time_stamps
+  resources :plugs
+  resources :operations
+  resources :non_senses
+  resources :why_nots
+  resources :revenues
+  resources :accounts
   get 'dashboard', to: 'home#index'
   resources :users, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   devise_for :users, :controllers => {

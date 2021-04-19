@@ -14,7 +14,7 @@
                 <div class="summary">
                   <h4 class="title">Main Account Available</h4>
                   <div class="info">
-                    <strong class="amount">R 20,000.00</strong>
+                    <strong class="amount">R <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">

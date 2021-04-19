@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PlugUserTest < ActiveSupport::TestCase
+class WhyNotTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

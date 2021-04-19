@@ -14,7 +14,7 @@
                 <div class="summary">
                   <h4 class="title">Main Account Available</h4>
                   <div class="info">
-                    <strong class="amount">R 20,000.00</strong>
+                    <strong class="amount">R <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">
@@ -36,13 +36,13 @@
               </div>
               <div class="widget-summary-col">
                 <div class="summary">
-                  <h4 class="title">20 Plug</h4>
+                  <h4 class="title">Plug</h4>
                   <div class="info">
-                    <strong class="amount">R 2,530.00</strong>
+                    <strong class="amount">R <%= number_with_delimiter(@account&.plug, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">
-                  <a class="text-muted text-uppercase" href="JavaScript:void(0);">(VIEW)</a>
+                  <a class="text-muted text-uppercase" href="/plugs">(VIEW)</a>
                 </div>
               </div>
             </div>
@@ -61,13 +61,13 @@
               </div>
               <div class="widget-summary-col">
                 <div class="summary">
-                  <h4 class="title">10 Time Stamp</h4>
+                  <h4 class="title">Time Stamp</h4>
                   <div class="info">
-                    <strong class="amount">R 1,546.00</strong>
+                    <strong class="amount">R <%= number_with_delimiter(@account&.time_stamp, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">
-                  <a class="text-muted text-uppercase" href="JavaScript:void(0);">(VIEW)</a>
+                  <a class="text-muted text-uppercase" href="/time_stamps">(VIEW)</a>
                 </div>
               </div>
             </div>
