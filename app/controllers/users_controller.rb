@@ -19,6 +19,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        if params[:user][:parent_id].present?
+          @user.child_users(params[:user][:parent_id].join(' ').split)
+        end
         format.html { redirect_to users_url, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
