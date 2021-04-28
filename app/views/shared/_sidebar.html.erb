@@ -20,60 +20,15 @@
               <span>Dashboard</span>
             </a>
           </li>
-          <li>
-            <a class="nav-link" href="/users">
-              <i class="bx bx-home-alt" aria-hidden="true"></i>
-              <span>Users</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/accounts">
-              <i class="bx bx-home-alt" aria-hidden="true"></i>
-              <span>Main Account</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/revenues">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Revenue</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/why_nots">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Why Not?</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/non_senses">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Nonsense</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/operations">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Operation</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/plugs">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Plug</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="/time_stamps">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Time Stamp</span>
-            </a>
-          </li>
-          <li>
-            <a class="nav-link" href="JavaScript:void(0);">
-              <i class="bx bx-cart-alt" aria-hidden="true"></i>
-              <span>Settings</span>
-            </a>
-          </li>
+          <% if current_user.account_manager? %>
+            <%= render partial: 'shared/account_manager' %>
+          <% elsif current_user.admin? %>
+            <%= render partial: 'shared/admin' %>
+          <% elsif current_user.super_admin? %>
+            <%= render partial: 'shared/super_admin' %>
+          <% elsif current_user.plug_user? %>
+            <%= render partial: 'shared/plug' %>
+          <% end %>
         </ul>
       </nav>
     </div>

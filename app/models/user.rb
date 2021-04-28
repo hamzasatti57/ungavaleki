@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :rememberable, :validatable
 
+  has_many :loans, dependent: :destroy
+
   enum user_type: {
     "basic": "Basic – R 1000",
     "silver": "Silver – R 1500",
@@ -27,7 +29,7 @@ class User < ApplicationRecord
   end
 
   def simple_user?
-    role == 'simple_user'
+    role == 'user'
   end
 
   def full_name

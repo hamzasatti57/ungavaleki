@@ -6,3 +6,7 @@
 #plug-users {
   display: none;
 }
+
+.anchor-color {
+  color: blue !important;
+}

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :loans
   resources :time_stamps
   resources :plugs
   resources :operations
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   resources :revenues
   resources :accounts
   get 'dashboard', to: 'home#index'
+  get 'update_status', to: 'loans#update_status'
   resources :users, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   devise_for :users, :controllers => {
     :sessions => "users/sessions",
