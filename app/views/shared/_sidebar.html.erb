@@ -20,6 +20,12 @@
               <span>Dashboard</span>
             </a>
           </li>
+          <li>
+            <a class="nav-link" href="/loans">
+              <i class="bx bx-home-alt" aria-hidden="true"></i>
+              <span>Loan Requests</span>
+            </a>
+          </li>
           <% if current_user.account_manager? %>
             <%= render partial: 'shared/account_manager' %>
           <% elsif current_user.admin? %>
