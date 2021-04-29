@@ -32,7 +32,7 @@
             <%= render partial: 'shared/admin' %>
           <% elsif current_user.super_admin? %>
             <%= render partial: 'shared/super_admin' %>
-          <% elsif current_user.plug_user? %>
+          <% elsif current_user.plug_user? || current_user.simple_user? %>
             <%= render partial: 'shared/plug' %>
           <% end %>
         </ul>
