@@ -4,7 +4,7 @@ module ApplicationHelper
     if id.blank?
       User.where(role: 'user', parent_id: nil)
     else
-      User.where("role = 'user' OR parent_id = #{id}")
+      User.where("(role = 'user' AND parent_id is NULL) OR parent_id = #{id}")
     end
   end
 

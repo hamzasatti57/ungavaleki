@@ -26,9 +26,24 @@ class Loan < ApplicationRecord
   end
 
   def loan_amount
-    account = Account.first
-    if self.amount > account.amount
-      errors.add(:amount, "must be less then total amount")
+    case user.user_type
+    when 'basic'
+      if self.amount > 1000
+        errors.add(:amount, "must be less then 1000")
+      end
+    when 'silver'
+      if self.amount > 1500
+        errors.add(:amount, "must be less then 1500")
+      end
+    when 'gold'
+      if self.amount > 2000
+        errors.add(:amount, "must be less then 2000")
+      end
+    else
+      account = Account.first
+      if self.amount > account.amount
+        errors.add(:amount, "must be less then total amount")
+      end
     end
   end
 end

@@ -60,11 +60,20 @@
                   <% if loan.plug_approval %>
                     <td style="color: blue;">Approved</td>
                   <% else %>
-                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
+                    <% if current_user.id != loan.user_id %>
+                      <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
+                    <% else %>
+                      <td>Pending</td>
+                    <% end %>
                   <% end %>
                 <% end %>
-                <td><%= link_to 'Edit', edit_loan_path(loan) %></td>
-                <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% if loan.status == 'pending' %>
+                  <td><%= link_to 'Edit', edit_loan_path(loan) %></td>
+                  <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                <% end %>
               </tr>
             <% end %>
             </tbody>
@@ -77,22 +86,22 @@
 <script src="/assets/theme.js"></script>
 <script>
   function change_status(obj, type){
-<!--    $.ajax({-->
-<!--      url:'/update_status?type='+type,-->
-<!--      type:'post',-->
-<!--      headers: {-->
-<!--        'X-CSRF-Token': '<%#= form_authenticity_token.to_s %>'-->
-<!--      },-->
-<!--      dataType:'json',-->
-<!--      processData:false,-->
-<!--      success:function (data) {-->
-<!--        obj.innerHTML = "Approved";-->
-<!--        obj.disabled = true-->
-<!--      },-->
-<!--      error:function (data) {-->
-<!--        alert ('Error');-->
-<!--      }-->
-<!--    });-->
+    <!--    $.ajax({-->
+    <!--      url:'/update_status?type='+type,-->
+    <!--      type:'post',-->
+    <!--      headers: {-->
+    <!--        'X-CSRF-Token': '<%#= form_authenticity_token.to_s %>'-->
+    <!--      },-->
+    <!--      dataType:'json',-->
+    <!--      processData:false,-->
+    <!--      success:function (data) {-->
+    <!--        obj.innerHTML = "Approved";-->
+    <!--        obj.disabled = true-->
+    <!--      },-->
+    <!--      error:function (data) {-->
+    <!--        alert ('Error');-->
+    <!--      }-->
+    <!--    });-->
   }
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
