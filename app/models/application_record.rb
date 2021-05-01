@@ -24,4 +24,25 @@ class ApplicationRecord < ActiveRecord::Base
       account.update(why_not: amount)
     end
   end
+
+  def amount_value
+    account = Account.first
+    case self.class.name
+    when Revenue.to_s
+      amount = account.revenue
+    when NonSense.to_s
+      amount = account.nonsense
+    when Plug.to_s
+      amount = account.plug
+    when Operation.to_s
+      amount = account.operation
+    when TimeStamp.to_s
+      amount = account.time_stamp
+    when WhyNot.to_s
+      amount = account.why_not
+    end
+    if self.amount > amount
+      errors.add(:amount, "must be less then total #{self.class.name.downcase} amount")
+    end
+  end
 end
