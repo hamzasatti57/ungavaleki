@@ -1,6 +1,7 @@
 class Loan < ApplicationRecord
   belongs_to :user
   before_save :update_status
+  after_save :update_interest
   validate :loan_amount
 
   def update_status
@@ -35,5 +36,8 @@ class Loan < ApplicationRecord
         errors.add(:amount, "must be less then total amount")
       end
     end
+  end
+
+  def update_interest
   end
 end
