@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :rememberable, :validatable
 
   has_many :loans, dependent: :destroy
-
+  has_one :bank_account, dependent: :destroy
+  
   enum user_type: {
     "basic": "Basic – R 1000",
     "silver": "Silver – R 1500",

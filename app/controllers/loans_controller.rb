@@ -1,6 +1,6 @@
 class LoansController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_loan, only: %i[ show edit update destroy update_status]
+  before_action :set_loan, only: %i[ show edit update destroy update_status admin_pay]
 
   def index
     @loans = Loan.all
@@ -45,6 +45,15 @@ class LoansController < ApplicationController
     respond_to do |format|
       format.html { redirect_to loans_url, notice: "Loan was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def admin_pay
+    if @loan.update(admin_pay: true)
+      account = Account.first
+      remaining_amount = account.amount - @loan.amount
+      account.update(amount: remaining_amount)
+      redirect_to loans_url, notice: "admin payed loan successfully"
     end
   end
 

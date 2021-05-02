@@ -12,12 +12,9 @@
             <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
           </div>
 
-          <h2 class="card-title">Loan Request</h2>
+          <h2 class="card-title">Return Loan</h2>
         </header>
         <div class="card-body">
-          <% if current_user.role.in? ['user', 'plug_user'] %>
-            <%= link_to 'Loan', new_loan_path, class: 'btn btn-primary' %>
-          <% end %>
           <p id="notice"><%= notice %></p>
           <table class="table table-bordered table-striped mb-0" id="datatable-default">
             <thead>
@@ -30,12 +27,6 @@
                 <th>Plug approval</th>
               <% end %>
               <th>Due Date</th>
-              <th>Status</th>
-              <% if current_user.role.in? ['admin', 'plug_user'] %>
-                <th>Action</th>
-              <% end %>
-              <th></th>
-              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -49,36 +40,21 @@
                   <td><%= get_boolean_value(loan.plug_approval) %></td>
                 <% end %>
                 <td><%= loan.due_date.to_s %></td>
-                <td><%= loan.status.humanize %></td>
-                <% if current_user.admin? %>
-                  <% if loan.admin_approval %>
-                    <td style="color: blue;">Approved</td>
-                    <% if loan.admin_pay? %>
-                      <td style="color: blue;">Paid</td>
-                    <% else %>
-                      <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
-                    <% end %>
-                  <% else %>
-                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
-                  <% end %>
-                <% elsif current_user.plug_user? %>
-                  <% if loan.plug_approval %>
-                    <td style="color: blue;">Approved</td>
-                  <% else %>
-                    <% if current_user.id != loan.user_id %>
-                      <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
-                    <% else %>
-                      <td>Pending</td>
-                    <% end %>
-                  <% end %>
-                <% end %>
-                <% if loan.status == 'pending' %>
-                  <td><%= link_to 'Edit', edit_loan_path(loan) if current_user.id == loan.user_id %></td>
-                  <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } if current_user.id == loan.user_id %></td>
+                <% if current_user.role.in? ['admin', 'super_admin', 'account_manager'] %>
+                	<% if loan.admin_received? %>
+                		<td style="color: blue">Loan Received</td>
+                	<% else %>
+                		<td><%= link_to 'Confirm loan received', loan_received_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+                	<% end %>
                 <% else %>
-                  <td></td>
-                  <td></td>
-                <% end %>
+	                <% if loan.user_pay? && loan.admin_received? %>
+	                  <td style="color: blue;">Loan Returned</td>
+	                <% elsif  loan.user_pay? %>
+	                <td style="color: blue;">Admin will approve loan returned</td>
+	                <% else %>
+	                  <td><%= link_to 'Return Loan', pay_to_admin_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+	                <% end %>
+	              <% end %>
               </tr>
             <% end %>
             </tbody>

@@ -11,4 +11,14 @@ module ApplicationHelper
   def get_boolean_value(value)
     value ? 'Yes' : 'No'
   end
+
+  def get_admin?
+    get_user =  User.where("role IN (?)", ['admin', 'super_admin', 'account_manager'])
+    get_bank_account = BankAccount.where(user_id: get_user)
+    if get_bank_account.any?
+      true
+    else
+      false
+    end
+  end
 end

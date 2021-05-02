@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  resources :loans
+
+  resources :loan_returns, only: [:index] do
+    member do
+      get :pay_to_admin
+      get :loan_received
+    end
+  end
+  resources :bank_accounts
+  resources :loans do
+    member do
+      get :admin_pay
+    end
+  end
   resources :time_stamps
   resources :plugs
   resources :operations
