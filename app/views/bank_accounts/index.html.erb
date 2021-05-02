@@ -20,26 +20,24 @@
           <% elsif (current_user.role.in? ['user', 'plug_user']) && (current_user.bank_account.blank?) %>
             <%= link_to 'Bank Account', new_bank_account_path, class: 'btn btn-primary' %>
           <% end %>
+          <p>
+            <strong>Bank Name:</strong>
+            <%= @bank_account&.bank_name %>
+          </p>
+
+          <p>
+            <strong>Account Title:</strong>
+            <%= @bank_account&.account_title %>
+          </p>
+
+          <p>
+            <strong>Account Number:</strong>
+            <%= @bank_account&.account_number %>
+          </p>
+          <%= link_to 'Edit', edit_bank_account_path(@bank_account.id) if @bank_account.present? %> |
+          <%= link_to 'Destroy', @bank_account, method: :delete, data: { confirm: 'Are you sure?' } if @bank_account.present? %> |
+          <%= link_to 'Back', bank_accounts_path %>
           <p id="notice"><%= notice %></p>
-          <table class="table table-bordered table-striped mb-0" id="datatable-default">
-            <thead>
-            <tr>
-              <th>Bank Name</th>
-              <th>Account Title</th>
-              <th>Account Number</th>
-              <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><%= @bank_account&.bank_name %></td>
-                <td><%= @bank_account&.account_title %></td>
-                <td><%= @bank_account&.account_number %></td>
-                <td><%= link_to 'Edit', edit_bank_account_path(@bank_account.id) if @bank_account.present? %></td>
-                <td><%= link_to 'Destroy', @bank_account, method: :delete, data: { confirm: 'Are you sure?' } if @bank_account.present? %></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
     </div>
