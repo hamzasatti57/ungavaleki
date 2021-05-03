@@ -2,7 +2,7 @@ class BankAccountsController < ApplicationController
   before_action :set_bank_account, only: %i[edit update destroy]
 
   def index
-  	 	get_user =  User.where("role IN (?)", ['admin', 'super_admin', 'account_manager'])
+  	 	get_user =  current_user.role.in? ['admin', 'super_admin', 'account_manager']
     	get_bank_account = BankAccount.where(user_id: get_user)
   	if get_bank_account.any?
   		@bank_account = get_bank_account.first
