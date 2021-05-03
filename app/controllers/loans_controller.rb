@@ -53,7 +53,7 @@ class LoansController < ApplicationController
       account = Account.first
       remaining_amount = account.amount - @loan.amount
       account.update(amount: remaining_amount)
-      @loan.update(due_date: Date.today + 28.days)
+      @loan.update(due_date: Date.today + 28.days, loan_date: Date.today)
       redirect_to loans_url, notice: "admin payed loan successfully"
     end
   end

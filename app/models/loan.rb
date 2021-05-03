@@ -39,5 +39,27 @@ class Loan < ApplicationRecord
   end
 
   def update_interest
+    return if loan_date.blank?
+    return if !admin_received
+    days = (Date.today - loan_date).to_i
+    days = days == 0 ? 1 : days
+    if days <= 7
+      interest_value = amount * 0.1
+    elsif days > 7
+      interest_value = amount * 0.2
+    elsif days > 14
+      interest_value = amount * 0.3
+    elsif days > 21
+      interest_value = amount * 0.4
+    end
+    account = Account.first
+    rev = interest_value * 0.4
+    why_not = interest_value * 0.1
+    plug = interest_value * 0.2
+    time_stamp = interest_value * 0.1
+    oper = interest_value * 0.1
+    nonsense = interest_value * 0.1
+
+    account.update(revenue: rev, why_not: why_not, plug: plug, time_stamp: time_stamp, operation: oper, nonsense: nonsense)
   end
 end
