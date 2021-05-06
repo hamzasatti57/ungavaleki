@@ -64,7 +64,11 @@ class LoansController < ApplicationController
   end
 
   def update_status
-    @loan.update("#{params[:type]}": true)
+    if params[:type] == 'plug_approval'
+      @loan.update(plug_approval: true, status: 'in-progress')
+    else
+      @loan.update(admin_approval: true, status: 'approved')
+    end
     redirect_to loans_url
   end
 

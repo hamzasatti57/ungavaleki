@@ -5,7 +5,7 @@ class LoanReturnsController < ApplicationController
     if current_user.role.in? ['admin', 'super_admin', 'account_manager']
       @loans = Loan.where(admin_pay: true).all
     else
-      @loans = current_user.loans.where(admin_pay: true).all
+      @loans = current_user.loans.where(admin_pay: true, admin_received: false).all
     end
   end
 

@@ -1,6 +1,6 @@
 class Loan < ApplicationRecord
   belongs_to :user
-  before_save :update_status
+  # before_save :update_status
   after_save :update_interest
   validate :loan_amount
 

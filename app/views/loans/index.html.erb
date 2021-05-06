@@ -51,8 +51,8 @@
                 <td><%= loan.due_date.to_s %></td>
                 <td><%= loan.status.humanize %></td>
                 <% if current_user.admin? %>
-                  <% if loan.user.parent_id.present? && !loan.plug_approval %>
-                    <td style="color: red;">Plug approval required</td>
+                  <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
+                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %><span style="color: red;"> (Not approved by plug)</span></td>
                   <% else %>
                     <% if loan.admin_approval %>
                       <td style="color: green;">Approved</td>
