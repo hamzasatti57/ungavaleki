@@ -4,16 +4,16 @@ class LoanMailer < ApplicationMailer
 
   def loan_request(user)
     @user = user
-    mail(to: "alisheikh4021@gmail.com", from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan request received" )
+    mail(to: user.email, from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan request received" )
   end
 
   def loan_paid(user)
     @user = user
-    mail(to: "alisheikh4021@gmail.com", from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan Paid" )
+    mail(to: user.email, from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan Paid" )
   end
 
   def loan_return(user)
     @user = user
-    mail(to: "alisheikh4021@gmail.com", from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan Returned" )
+    mail(to: user.email, from: "Ungavaleki <hamza.satti063@gmail.com>", :subject=> "Loan Returned" )
   end
 end
