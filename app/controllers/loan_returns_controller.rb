@@ -11,6 +11,7 @@ class LoanReturnsController < ApplicationController
 
   def pay_to_admin
     if @loan.update(user_pay: true)
+      LoanMailer.loan_return(@loan.user).deliver
       redirect_to loan_returns_url, notice: "User returned loan successfully"
     end
   end

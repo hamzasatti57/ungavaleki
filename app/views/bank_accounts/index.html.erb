@@ -35,8 +35,7 @@
             <%= @bank_account&.account_number %>
           </p>
           <%= link_to 'Edit', edit_bank_account_path(@bank_account.id) if @bank_account.present? %> |
-          <%= link_to 'Destroy', @bank_account, method: :delete, data: { confirm: 'Are you sure?' } if @bank_account.present? %> |
-          <%= link_to 'Back', bank_accounts_path %>
+          <%= link_to 'Destroy', @bank_account, method: :delete, data: { confirm: 'Are you sure?' } if @bank_account.present? %>
           <p id="notice"><%= notice %></p>
         </div>
       </section>

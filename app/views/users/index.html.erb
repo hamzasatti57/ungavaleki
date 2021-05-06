@@ -26,6 +26,7 @@
               <th>Plan Type</th>
               <th>DOB</th>
               <th>Phone</th>
+              <th>Account</th>
 <!--              <th></th>-->
               <th></th>
               <th></th>
@@ -40,6 +41,7 @@
                 <td><%= User::user_types[user.user_type] %></td>
                 <td><%= user.dob %></td>
                 <td><%= user.phone %></td>
+                <td><%= link_to 'detail', bank_accounts_url(user_id: user.id) %></td>
 <!--                <td><%#= link_to 'Show', user %></td>-->
                 <td><%= link_to 'Edit', edit_user_path(user) %></td>
                 <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>

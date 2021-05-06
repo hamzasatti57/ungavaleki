@@ -51,24 +51,28 @@
                 <td><%= loan.due_date.to_s %></td>
                 <td><%= loan.status.humanize %></td>
                 <% if current_user.admin? %>
-                  <% if loan.admin_approval %>
-                    <td style="color: blue;">Approved</td>
-                    <% if loan.admin_pay? %>
-                      <td style="color: blue;">Paid</td>
-                    <% else %>
-                      <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
-                    <% end %>
+                  <% if loan.user.parent_id.present? && !loan.plug_approval %>
+                    <td style="color: red;">Plug approval required</td>
                   <% else %>
-                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                    <% if loan.admin_approval %>
+                      <td style="color: green;">Approved</td>
+                      <% if loan.admin_pay? %>
+                        <td style="color: blue;">Paid</td>
+                      <% else %>
+                        <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
+                      <% end %>
+                    <% else %>
+                      <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                    <% end %>
                   <% end %>
                 <% elsif current_user.plug_user? %>
                   <% if loan.plug_approval %>
-                    <td style="color: blue;">Approved</td>
+                    <td style="color: green;">Approved</td>
                   <% else %>
                     <% if current_user.id != loan.user_id %>
                       <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
                     <% else %>
-                      <td>Pending</td>
+                      <td style="color: red;">Pending</td>
                     <% end %>
                   <% end %>
                 <% end %>

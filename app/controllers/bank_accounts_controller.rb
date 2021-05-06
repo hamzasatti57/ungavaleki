@@ -2,23 +2,27 @@ class BankAccountsController < ApplicationController
   before_action :set_bank_account, only: %i[edit update destroy]
 
   def index
-  	 	get_user =  current_user.role.in? ['admin', 'super_admin', 'account_manager']
-    	get_bank_account = BankAccount.where(user_id: get_user)
-  	if get_bank_account.any?
-  		@bank_account = get_bank_account.first
-  	else
-  		@bank_account = current_user.bank_account
-  	end
+    if params[:user_id].present?
+      @bank_account = User.find(params[:user_id]).bank_account
+    else
+      get_user = current_user.role.in? ['admin', 'super_admin', 'account_manager']
+      get_bank_account = BankAccount.where(user_id: get_user)
+      if get_bank_account.any?
+        @bank_account = get_bank_account.first
+      else
+        @bank_account = current_user.bank_account
+      end
+    end
   end
 
   def edit; end
 
   def new
-  	@bank_account = BankAccount.new
+    @bank_account = BankAccount.new
   end
 
   def create
-  	@bank_account = current_user.build_bank_account(bank_account_params)
+    @bank_account = current_user.build_bank_account(bank_account_params)
     respond_to do |format|
       if @bank_account.save
         format.html { redirect_to bank_accounts_url, notice: "Bank Account Number successfully created." }
@@ -30,7 +34,7 @@ class BankAccountsController < ApplicationController
     end
   end
 
-    def update
+  def update
     respond_to do |format|
       if @bank_account.update(bank_account_params)
         format.html { redirect_to bank_accounts_url, notice: "Bank Account was successfully updated." }
@@ -58,7 +62,7 @@ class BankAccountsController < ApplicationController
   end
 
   def bank_account_params
-  	params.require(:bank_account).permit(:bank_name, :account_title, :account_number)
-  	
+    params.require(:bank_account).permit(:bank_name, :account_title, :account_number)
+
   end
 end

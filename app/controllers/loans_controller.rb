@@ -19,6 +19,7 @@ class LoansController < ApplicationController
     @loan.user_id = current_user.id
     respond_to do |format|
       if @loan.save
+        LoanMailer.loan_request(current_user).deliver
         format.html { redirect_to loans_url, notice: "Loan was successfully created." }
         format.json { render :show, status: :created, location: @loan }
       else
@@ -49,11 +50,15 @@ class LoansController < ApplicationController
   end
 
   def admin_pay
+    if @loan.user.bank_account.blank?
+      return redirect_to loans_url, notice: "Bank account detail not present, please enter bank account details first."
+    end
     if @loan.update(admin_pay: true)
       account = Account.first
       remaining_amount = account.amount - @loan.amount
       account.update(amount: remaining_amount)
       @loan.update(due_date: Date.today + 28.days, loan_date: Date.today)
+      LoanMailer.loan_paid(@loan.user).deliver
       redirect_to loans_url, notice: "admin payed loan successfully"
     end
   end
