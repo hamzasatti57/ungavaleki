@@ -1,6 +1,7 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_account, only: %i[ show edit update destroy ]
+  before_action :authorize_user!
 
   def index
     @accounts = Account.all

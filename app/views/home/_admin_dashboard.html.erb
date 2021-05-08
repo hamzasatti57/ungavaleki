@@ -7,14 +7,14 @@
             <div class="widget-summary">
               <div class="widget-summary-col widget-summary-col-icon">
                 <div class="summary-icon bg-secondary">
-                  <i class="fas fa-dollar-sign"></i>
+                  <i class="currency-style">&#82;</i>
                 </div>
               </div>
               <div class="widget-summary-col">
                 <div class="summary">
                   <h4 class="title">Main Account</h4>
                   <div class="info">
-                    <strong class="amount">R <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
+                    <strong class="amount"> <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">

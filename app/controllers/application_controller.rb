@@ -8,4 +8,10 @@ class ApplicationController < ActionController::Base
     sign_in_path
   end
 
+  def authorize_user!
+    if user_signed_in? && (current_user.role.in? ['plug_user', 'user'])
+      flash[:alert] = "You have not authorize to this page."
+      redirect_to root_path
+    end
+  end
 end
