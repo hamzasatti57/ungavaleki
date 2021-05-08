@@ -21,4 +21,12 @@ module ApplicationHelper
       false
     end
   end
+
+  def loan_dues
+    Loan.where("admin_pay = true AND user_pay = false AND due_date <= '#{Date.today}'")
+  end
+
+  def loan_over_dues
+    Loan.where("admin_pay = true AND user_pay = false AND due_date > '#{Date.today}'")
+  end
 end

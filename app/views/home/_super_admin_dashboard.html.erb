@@ -12,7 +12,7 @@
               </div>
               <div class="widget-summary-col">
                 <div class="summary">
-                  <h4 class="title">Main Account Available</h4>
+                  <h4 class="title">Main Account</h4>
                   <div class="info">
                     <strong class="amount">R <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
                   </div>
@@ -94,30 +94,20 @@
           <thead>
           <tr>
             <th>#</th>
-            <th>Project</th>
+            <th>User</th>
+            <th>Amount</th>
             <th>Status</th>
-            <th>Progress</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <% loan_dues.each_with_index do |loan, index| %>
+            <tr>
+              <td><%= index +1 %></td>
+              <td><%= loan.user.full_name %></td>
+              <td><%= loan.amount %></td>
+              <td><%= loan.status %></td>
+            </tr>
+          <% end %>
           </tbody>
         </table>
       </div>
@@ -138,30 +128,20 @@
           <thead>
           <tr>
             <th>#</th>
-            <th>Project</th>
+            <th>User</th>
+            <th>Amount</th>
             <th>Status</th>
-            <th>Progress</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <% loan_over_dues.each_with_index do |loan, index| %>
+            <tr>
+              <td><%= index +1 %></td>
+              <td><%= loan.user.full_name %></td>
+              <td><%= loan.amount %></td>
+              <td><%= loan.status %></td>
+            </tr>
+          <% end %>
           </tbody>
         </table>
       </div>

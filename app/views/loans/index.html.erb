@@ -31,8 +31,12 @@
               <% end %>
               <th>Due Date</th>
               <th>Status</th>
-              <% if current_user.role.in? ['admin', 'plug_user'] %>
+              <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                 <th>Action</th>
+                <th></th>
+              <% else %>
+                <th></th>
+                <th></th>
               <% end %>
               <th></th>
               <th></th>
@@ -50,31 +54,43 @@
                 <% end %>
                 <td><%= loan.due_date.to_s %></td>
                 <td><%= loan.status.humanize %></td>
-                <% if current_user.role.in? ['admin', 'super_admin', 'account_manager'] %>
+                <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                   <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
                     <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %><span style="color: red;"> (Not approved by plug)</span></td>
+                    <td></td>
                   <% else %>
                     <% if loan.admin_approval %>
                       <td style="color: green;">Approved</td>
-                      <% if loan.admin_pay? %>
-                        <td style="color: blue;">Paid</td>
+                      <% if current_user.role != 'plug_user' %>
+                        <% if loan.admin_pay? %>
+                          <td style="color: blue;">Paid</td>
+                        <% else %>
+                          <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
+                        <% end %>
                       <% else %>
-                        <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
+                        <td></td>
                       <% end %>
                     <% else %>
                       <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                      <td></td>
                     <% end %>
                   <% end %>
                 <% elsif current_user.plug_user? %>
                   <% if loan.plug_approval %>
                     <td style="color: green;">Approved</td>
+                    <td></td>
                   <% else %>
                     <% if current_user.id != loan.user_id %>
                       <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
+                      <td></td>
                     <% else %>
                       <td style="color: red;">Pending</td>
+                      <td></td>
                     <% end %>
                   <% end %>
+                <% else %>
+                  <td></td>
+                  <td></td>
                 <% end %>
                 <% if loan.status == 'pending' %>
                   <td><%= link_to 'Edit', edit_loan_path(loan) if current_user.id == loan.user_id %></td>
