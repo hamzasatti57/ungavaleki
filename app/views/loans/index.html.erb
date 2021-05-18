@@ -29,7 +29,8 @@
                 <th>Admin approval</th>
                 <th>Plug approval</th>
               <% end %>
-              <th>Due Date</th>
+              <th>Expected return</th>
+              <th>Expected amount</th>
               <th>Status</th>
               <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                 <th>Action</th>
@@ -52,7 +53,8 @@
                   <td><%= get_boolean_value(loan.admin_approval) %></td>
                   <td><%= get_boolean_value(loan.plug_approval) %></td>
                 <% end %>
-                <td><%= loan.due_date.to_s %></td>
+                <td><%= loan.expected_return %></td>
+                <td><%= loan.expected_amount %></td>
                 <td><%= loan.status.humanize %></td>
                 <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                   <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
@@ -71,7 +73,11 @@
                         <td></td>
                       <% end %>
                     <% else %>
-                      <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                      <% if loan.user_id != current_user.id %>
+                        <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                      <% else %>
+                        <td></td>
+                      <% end %>
                       <td></td>
                     <% end %>
                   <% end %>

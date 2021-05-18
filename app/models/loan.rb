@@ -3,6 +3,14 @@ class Loan < ApplicationRecord
   # before_save :update_status
   after_save :update_interest
   validate :loan_amount
+  after_create :update_expected_amount
+  validate :loan_value, :on => :create
+
+  def loan_value
+    if user.loans.where(admin_received: false).any?
+      errors.add(:loan, "already in progress.")
+    end
+  end
 
   def update_status
     if plug_approval_changed? || admin_approval_changed?
@@ -61,5 +69,21 @@ class Loan < ApplicationRecord
     nonsense = interest_value * 0.1
 
     account.update(revenue: rev, why_not: why_not, plug: plug, time_stamp: time_stamp, operation: oper, nonsense: nonsense)
+  end
+
+  def update_expected_amount
+    case self.expected_return
+    when '1 week'
+      interest_value = amount * 0.1
+    when '2 weeks'
+      interest_value = amount * 0.2
+    when '3 weeks'
+      interest_value = amount * 0.3
+    when '4 weeks'
+      interest_value = amount * 0.4
+    else
+      interest_value = 0
+    end
+    update(expected_amount: amount + interest_value)
   end
 end
