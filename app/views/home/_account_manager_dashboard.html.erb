@@ -38,7 +38,7 @@
                 <div class="summary">
                   <h4 class="title">Revenue</h4>
                   <div class="info">
-                    <strong class="amount">R <%= number_with_delimiter(@account&.revenue, :delimiter => ',') %></strong>
+                    <strong class="amount"><%= number_with_delimiter(@account&.revenue, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">
