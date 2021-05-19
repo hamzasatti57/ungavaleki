@@ -28,6 +28,7 @@
               <% end %>
               <th>Expected amount</th>
               <th>Expected return</th>
+              <th>Actual return</th>
               <th>Action</th>
             </tr>
             </thead>
@@ -43,21 +44,26 @@
                 <% end %>
                 <td><%= loan.expected_amount %></td>
                 <td><%= loan.expected_return %></td>
+                <td><%= loan.actual_return %></td>
                 <% if current_user.role.in? ['admin', 'super_admin', 'account_manager'] %>
-                	<% if loan.admin_received? %>
-                		<td style="color: blue">Loan Received</td>
-                	<% else %>
-                		<td><%= link_to 'Confirm loan received', loan_received_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
-                	<% end %>
+                  <% if loan.admin_received? %>
+                    <td style="color: blue">Loan Received</td>
+                  <% else %>
+                    <% if loan.user_pay %>
+                      <td><%= link_to 'Confirm loan received', loan_received_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+                    <% else %>
+                      <td style="color: red">Not returned yet</td>
+                    <% end %>
+                  <% end %>
                 <% else %>
-	                <% if loan.user_pay? && loan.admin_received? %>
-	                  <td style="color: blue;">Loan Returned</td>
-	                <% elsif  loan.user_pay? %>
-	                <td style="color: blue;">Admin will approve loan returned</td>
-	                <% else %>
-	                  <td><%= link_to 'Return Loan', pay_to_admin_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
-	                <% end %>
-	              <% end %>
+                  <% if loan.user_pay? && loan.admin_received? %>
+                    <td style="color: blue;">Loan Returned</td>
+                  <% elsif  loan.user_pay? %>
+                    <td style="color: blue;">Admin will approve loan returned</td>
+                  <% else %>
+                    <td><%= link_to 'Return Loan', pay_to_admin_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+                  <% end %>
+                <% end %>
               </tr>
             <% end %>
             </tbody>

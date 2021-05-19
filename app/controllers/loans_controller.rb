@@ -3,7 +3,11 @@ class LoansController < ApplicationController
   before_action :set_loan, only: %i[ show edit update destroy update_status admin_pay]
 
   def index
-    @loans = Loan.all
+    if current_user.role.in? ['admin', 'super_admin', 'account_manager']
+      @loans = Loan.all
+    else
+      @loans = current_user.loans.where(admin_received: false)
+    end
   end
 
   def show; end

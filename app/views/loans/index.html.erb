@@ -31,6 +31,7 @@
               <% end %>
               <th>Expected return</th>
               <th>Expected amount</th>
+              <th>Actual return</th>
               <th>Status</th>
               <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                 <th>Action</th>
@@ -55,6 +56,7 @@
                 <% end %>
                 <td><%= loan.expected_return %></td>
                 <td><%= loan.expected_amount %></td>
+                <td><%= loan.actual_return %></td>
                 <td><%= loan.status.humanize %></td>
                 <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                   <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
