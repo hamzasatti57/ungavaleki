@@ -5,7 +5,7 @@ class LoansController < ApplicationController
   def index
     if current_user.role.in? ['admin', 'super_admin', 'account_manager']
       @loans = Loan.all
-    elsif current_user.role.in? ['plug']
+    elsif current_user.role.in? ['plug_user']
       child_user_ids = User.where(parent_id: current_user.id).pluck(:id)
       @loans = Loan.where("admin_received = false AND (user_id = #{current_user.id} OR user_id IN (?))", child_user_ids)
     else
