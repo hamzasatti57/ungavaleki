@@ -60,7 +60,7 @@
                 <td><%= loan.status.humanize %></td>
                 <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
                   <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
-                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: current_user.role == 'plug_user' ? 'plug_approval' : 'admin_approval') , class: 'anchor-color' %><span style="color: red;"> <% current_user.role != 'plug_user' ? '(Not approved by plug)' : '' %></span></td>
+                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: current_user.role == 'plug_user' ? 'plug_approval' : 'admin_approval') , class: 'anchor-color' %><span style="color: red;"> (Not approved by plug)</span></td>
                     <td></td>
                   <% else %>
                     <% if loan.admin_approval %>
