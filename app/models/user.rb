@@ -38,6 +38,7 @@ class User < ApplicationRecord
   end
 
   def child_users(ids)
+    User.where(parent_id: id).update_all(parent_id: nil)
     users = User.where(id: ids)
     users.update_all(parent_id: self.id)
   end
