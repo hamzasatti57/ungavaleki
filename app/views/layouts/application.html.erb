@@ -12,6 +12,7 @@
 </head>
 
 <body>
+   <%= toastr_flash %>
 <% if user_signed_in? %>
   <%= render partial: "/shared/header"%>
   <section class="body">

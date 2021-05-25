@@ -21,6 +21,7 @@
 //= require bootstrap
 //= require common
 //= require jquery-ui
+//= require toastr
 //= require modernizr
 //= require nanoscroller
 //= require jquery.magnific-popup
