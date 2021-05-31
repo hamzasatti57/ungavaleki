@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authorize_user!
 
   def index
     @users = User.all
@@ -19,6 +20,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        if params[:user][:parent_id].present?
+          @user.child_users(params[:user][:parent_id].join(' ').split)
+        end
         format.html { redirect_to users_url, notice: "User was successfully created." }
         format.json { render :show, status: :created, location: @user }
       else
@@ -33,6 +37,9 @@ class UsersController < ApplicationController
     respond_to do |format|
       if password.present?
         if @user.update(user_params)
+          if params[:user][:parent_id].present?
+            @user.child_users(params[:user][:parent_id].join(' ').split)
+          end
           format.html { redirect_to users_url, notice: 'User was successfully updated.' }
           format.json { render :show, status: :ok, location: @user }
         else
@@ -41,6 +48,9 @@ class UsersController < ApplicationController
         end
       else
         if @user.update(user_edit_params)
+          if params[:user][:parent_id].present?
+            @user.child_users(params[:user][:parent_id].join(' ').split)
+          end
           format.html { redirect_to users_url, notice: 'User was successfully updated.' }
           format.json { render :show, status: :ok, location: @user }
         else

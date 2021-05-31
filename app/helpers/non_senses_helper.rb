@@ -1,0 +1,2 @@
+module NonSensesHelper
+end

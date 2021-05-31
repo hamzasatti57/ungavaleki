@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>LoanManagement</title>
+  <title>Ungavaleki</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -12,6 +12,7 @@
 </head>
 
 <body>
+   <%= toastr_flash %>
 <% if user_signed_in? %>
   <%= render partial: "/shared/header"%>
   <section class="body">

@@ -7,14 +7,14 @@
             <div class="widget-summary">
               <div class="widget-summary-col widget-summary-col-icon">
                 <div class="summary-icon bg-secondary">
-                  <i class="fas fa-dollar-sign"></i>
+                  <i class="currency-style">&#82;</i>
                 </div>
               </div>
               <div class="widget-summary-col">
                 <div class="summary">
-                  <h4 class="title">Main Account Available</h4>
+                  <h4 class="title">Main Account</h4>
                   <div class="info">
-                    <strong class="amount">R 20,000.00</strong>
+                    <strong class="amount"> <%= number_with_delimiter(@account&.amount, :delimiter => ',') %></strong>
                   </div>
                 </div>
                 <div class="summary-footer">
@@ -38,37 +38,27 @@
           <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
         </div>
 
-        <h2 class="card-title">Due Today</h2>
+        <h2 class="card-title">Over Due</h2>
       </header>
       <div class="card-body">
         <table class="table table-responsive-md table-striped mb-0">
           <thead>
           <tr>
             <th>#</th>
-            <th>Project</th>
+            <th>User</th>
+            <th>Amount</th>
             <th>Status</th>
-            <th>Progress</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <% loan_dues.each_with_index do |loan, index| %>
+            <tr>
+              <td><%= index +1 %></td>
+              <td><%= loan.user.full_name %></td>
+              <td><%= loan.amount %></td>
+              <td><%= loan.status %></td>
+            </tr>
+          <% end %>
           </tbody>
         </table>
       </div>
@@ -82,37 +72,27 @@
           <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
         </div>
 
-        <h2 class="card-title">Over Due</h2>
+        <h2 class="card-title">Due Date</h2>
       </header>
       <div class="card-body">
         <table class="table table-responsive-md table-striped mb-0">
           <thead>
           <tr>
             <th>#</th>
-            <th>Project</th>
+            <th>User</th>
+            <th>Amount</th>
             <th>Status</th>
-            <th>Progress</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          <% loan_over_dues.each_with_index do |loan, index| %>
+            <tr>
+              <td><%= index +1 %></td>
+              <td><%= loan.user.full_name %></td>
+              <td><%= loan.amount %></td>
+              <td><%= loan.status %></td>
+            </tr>
+          <% end %>
           </tbody>
         </table>
       </div>

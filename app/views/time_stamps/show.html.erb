@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @time_stamp.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @time_stamp.amount %>
+</p>
+
+<%= link_to 'Edit', edit_time_stamp_path(@time_stamp) %> |
+<%= link_to 'Back', time_stamps_path %>

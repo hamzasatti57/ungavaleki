@@ -15,9 +15,9 @@
           <h2 class="card-title">users</h2>
         </header>
         <div class="card-body">
-          <p id="notice"><%= notice %></p>
           <%= link_to 'New User', new_user_path, class: 'btn btn-primary' %>
-          <table class="table table-bordered table-striped mb-0" id="datatable-tabletools">
+          <p id="notice"><%= notice %></p>
+          <table class="table table-bordered table-striped mb-0" id="datatable-default">
             <thead>
             <tr>
               <th>Name</th>
@@ -26,6 +26,7 @@
               <th>Plan Type</th>
               <th>DOB</th>
               <th>Phone</th>
+              <th>Account</th>
 <!--              <th></th>-->
               <th></th>
               <th></th>
@@ -40,6 +41,7 @@
                 <td><%= User::user_types[user.user_type] %></td>
                 <td><%= user.dob %></td>
                 <td><%= user.phone %></td>
+                <td><%= link_to 'detail', bank_accounts_url(user_id: user.id) %></td>
 <!--                <td><%#= link_to 'Show', user %></td>-->
                 <td><%= link_to 'Edit', edit_user_path(user) %></td>
                 <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -61,20 +63,5 @@
   ga('create', 'UA-42715764-8', 'auto');
   ga('send', 'pageview');
 </script>
-
-<script src="/assets/select2.js"></script>
-<script src="/assets/jquery.dataTables.min.js"></script>
-<script src="/assets/dataTables.bootstrap4.min.js"></script>
-<script src="/assets/dataTables.buttons.min.js"></script>
-<script src="/assets/buttons.bootstrap4.min.js"></script>
-<script src="/assets/buttons.html5.min.js"></script>
-<script src="/assets/buttons.print.min.js"></script>
-<script src="/assets/jszip.min.js"></script>
-<script src="/assets/pdfmake.min.js"></script>
-<script src="/assets/vfs_fonts.js"></script>
-
-
-<script src="/assets/examples.datatables.default.js"></script>
-<script src="/assets/examples.datatables.row.with.details.js"></script>
 
 </html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html class="fixed">
+
+<script src="/assets/modernizr.js"></script>
+<section role="main" class="content-body">
+  <div class="row">
+    <div class="col">
+      <section class="card">
+        <header class="card-header">
+          <div class="card-actions">
+            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+          </div>
+
+          <h2 class="card-title">Return Loan</h2>
+        </header>
+        <div class="card-body">
+          <p id="notice"><%= notice %></p>
+          <table class="table table-bordered table-striped mb-0" id="datatable-default">
+            <thead>
+            <tr>
+              <th>User</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <% if current_user.super_admin? %>
+                <th>Admin approval</th>
+                <th>Plug approval</th>
+              <% end %>
+              <th>Expected amount</th>
+              <th>Expected return</th>
+              <th>Actual return</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @loans.each do |loan| %>
+              <tr>
+                <td><%= loan.user.full_name %></td>
+                <td><%= loan.description %></td>
+                <td><%= loan.amount %></td>
+                <% if current_user.super_admin? %>
+                  <td><%= get_boolean_value(loan.admin_approval) %></td>
+                  <td><%= get_boolean_value(loan.plug_approval) %></td>
+                <% end %>
+                <td><%= loan.expected_amount %></td>
+                <td><%= loan.expected_return %></td>
+                <td><%= loan.actual_return %></td>
+                <% if current_user.role.in? ['admin', 'super_admin', 'account_manager'] %>
+                  <% if loan.admin_received? %>
+                    <td style="color: blue">Loan Received</td>
+                  <% else %>
+                    <% if loan.user_pay %>
+                      <td><%= link_to 'Confirm loan received', loan_received_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+                    <% else %>
+                      <td style="color: red">Not returned yet</td>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <% if loan.user_pay? && loan.admin_received? %>
+                    <td style="color: blue;">Loan Returned</td>
+                  <% elsif  loan.user_pay? %>
+                    <td style="color: blue;">Admin will approve loan returned</td>
+                  <% else %>
+                    <td><%= link_to 'Return Loan', pay_to_admin_loan_return_url(id: loan.id) , class: 'anchor-color' %></td>
+                  <% end %>
+                <% end %>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<script src="/assets/theme.js"></script>
+<script>
+  function change_status(obj, type){
+    <!--    $.ajax({-->
+    <!--      url:'/update_status?type='+type,-->
+    <!--      type:'post',-->
+    <!--      headers: {-->
+    <!--        'X-CSRF-Token': '<%#= form_authenticity_token.to_s %>'-->
+    <!--      },-->
+    <!--      dataType:'json',-->
+    <!--      processData:false,-->
+    <!--      success:function (data) {-->
+    <!--        obj.innerHTML = "Approved";-->
+    <!--        obj.disabled = true-->
+    <!--      },-->
+    <!--      error:function (data) {-->
+    <!--        alert ('Error');-->
+    <!--      }-->
+    <!--    });-->
+  }
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42715764-8', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

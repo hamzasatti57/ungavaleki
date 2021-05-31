@@ -4,13 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable,
          :rememberable, :validatable
 
+  has_many :loans, dependent: :destroy
+  has_one :bank_account, dependent: :destroy
+  
   enum user_type: {
     "basic": "Basic – R 1000",
     "silver": "Silver – R 1500",
-    "gold": "Gold – R 2000",
-    "plug_basic": "PlugBasic – R 1000",
-    "plug_silver": "PlugSilver – R 1500",
-    "plug_gold": "PlugGold – R 2000"
+    "gold": "Gold – R 2000"
   }
 
   def account_manager?
@@ -30,11 +30,17 @@ class User < ApplicationRecord
   end
 
   def simple_user?
-    role == 'simple_user'
+    role == 'user'
   end
 
   def full_name
     [first_name, last_name].select(&:present?).join(' ').titleize
+  end
+
+  def child_users(ids)
+    User.where(parent_id: id).update_all(parent_id: nil)
+    users = User.where(id: ids)
+    users.update_all(parent_id: self.id)
   end
 
 end

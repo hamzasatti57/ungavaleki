@@ -1,0 +1,147 @@
+<!doctype html>
+<html class="fixed">
+
+<script src="/assets/modernizr.js"></script>
+<section role="main" class="content-body">
+  <div class="row">
+    <div class="col">
+      <section class="card">
+        <header class="card-header">
+          <div class="card-actions">
+            <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+            <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+          </div>
+
+          <h2 class="card-title">Loan Request</h2>
+        </header>
+        <div class="card-body">
+          <% if current_user.role.in? ['user', 'plug_user'] %>
+            <%= link_to 'Loan', new_loan_path, class: 'btn btn-primary' %>
+          <% end %>
+          <p id="notice"><%= notice %></p>
+          <table class="table table-bordered table-striped mb-0" id="datatable-default">
+            <thead>
+            <tr>
+              <th>User</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <% if current_user.super_admin? %>
+                <th>Admin approval</th>
+                <th>Plug approval</th>
+              <% end %>
+              <th>Expected return</th>
+              <th>Expected amount</th>
+              <th>Actual return</th>
+              <th>Status</th>
+              <% if current_user.role.in? ['admin', 'plug_user', 'super_admin', 'account_manager'] %>
+                <th>Action</th>
+                <th></th>
+              <% else %>
+                <th></th>
+                <th></th>
+              <% end %>
+              <th></th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @loans.each do |loan| %>
+              <tr>
+                <td><%= loan.user.full_name %></td>
+                <td><%= loan.description %></td>
+                <td><%= loan.amount %></td>
+                <% if current_user.super_admin? %>
+                  <td><%= get_boolean_value(loan.admin_approval) %></td>
+                  <td><%= get_boolean_value(loan.plug_approval) %></td>
+                <% end %>
+                <td><%= loan.expected_return %></td>
+                <td><%= loan.expected_amount %></td>
+                <td><%= loan.actual_return %></td>
+                <td><%= loan.status.humanize %></td>
+                <% if current_user.role.in? ['admin', 'super_admin', 'account_manager'] %>
+                  <% if loan.user.parent_id.present? && !loan.plug_approval && !loan.admin_approval %>
+                    <td><%= link_to 'approve', update_status_url(id: loan.id, type: current_user.role == 'plug_user' ? 'plug_approval' : 'admin_approval') , class: 'anchor-color' %><span style="color: red;"> (Not approved by plug)</span></td>
+                    <td></td>
+                  <% else %>
+                    <% if loan.admin_approval %>
+                      <td style="color: green;">Approved</td>
+                      <% if current_user.role != 'plug_user' %>
+                        <% if loan.admin_pay? %>
+                          <td style="color: blue;">Paid</td>
+                        <% else %>
+                          <td><%= link_to 'Pay', admin_pay_loan_url(id: loan.id) , class: 'anchor-color' %></td>
+                        <% end %>
+                      <% else %>
+                        <td></td>
+                      <% end %>
+                    <% else %>
+                      <% if loan.user_id != current_user.id %>
+                        <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'admin_approval') , class: 'anchor-color' %></td>
+                      <% else %>
+                        <td></td>
+                      <% end %>
+                      <td></td>
+                    <% end %>
+                  <% end %>
+                <% elsif current_user.plug_user? %>
+                  <% if loan.plug_approval %>
+                    <td style="color: green;">Approved</td>
+                    <td></td>
+                  <% else %>
+                    <% if current_user.id != loan.user_id %>
+                      <td><%= link_to 'approve', update_status_url(id: loan.id, type: 'plug_approval') , class: 'anchor-color' %></td>
+                      <td></td>
+                    <% else %>
+                      <td style="color: red;">Pending</td>
+                      <td></td>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                <% end %>
+                <% if loan.status == 'pending' %>
+                  <td><%= link_to 'Edit', edit_loan_path(loan) if current_user.id == loan.user_id %></td>
+                  <td><%= link_to 'Destroy', loan, method: :delete, data: { confirm: 'Are you sure?' } if current_user.id == loan.user_id %></td>
+                <% else %>
+                  <td></td>
+                  <td></td>
+                <% end %>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<script src="/assets/theme.js"></script>
+<script>
+  function change_status(obj, type){
+    <!--    $.ajax({-->
+    <!--      url:'/update_status?type='+type,-->
+    <!--      type:'post',-->
+    <!--      headers: {-->
+    <!--        'X-CSRF-Token': '<%#= form_authenticity_token.to_s %>'-->
+    <!--      },-->
+    <!--      dataType:'json',-->
+    <!--      processData:false,-->
+    <!--      success:function (data) {-->
+    <!--        obj.innerHTML = "Approved";-->
+    <!--        obj.disabled = true-->
+    <!--      },-->
+    <!--      error:function (data) {-->
+    <!--        alert ('Error');-->
+    <!--      }-->
+    <!--    });-->
+  }
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-42715764-8', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</html>

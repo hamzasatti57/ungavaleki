@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @why_not.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @why_not.amount %>
+</p>
+
+<%= link_to 'Edit', edit_why_not_path(@why_not) %> |
+<%= link_to 'Back', why_nots_path %>

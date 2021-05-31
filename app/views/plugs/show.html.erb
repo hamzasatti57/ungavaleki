@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @plug.name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @plug.amount %>
+</p>
+
+<%= link_to 'Edit', edit_plug_path(@plug) %> |
+<%= link_to 'Back', plugs_path %>

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  amount: 1.5
+  revenue: 1.5
+  why_not: 1.5
+  nonesense: 1.5
+  operation: 1.5
+  plug: 1.5
+  time_stamp: 1.5
+
+two:
+  amount: 1.5
+  revenue: 1.5
+  why_not: 1.5
+  nonesense: 1.5
+  operation: 1.5
+  plug: 1.5
+  time_stamp: 1.5
